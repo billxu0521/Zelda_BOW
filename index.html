@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Game TimeLine Project</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <script type="text/javascript">
+    </script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>
+    <script language="javascript">
+    </script> 
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+    <script src="https://unpkg.com/masonry-layout@4.2.0/dist/masonry.pkgd.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89833109-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-89833109-6');
+    </script>
+
+
+    <script>
+
+   
+    var LANG_TYPE = 'ch';//切換語言用
+    var MATERIAL = new Object(); //材料物件 
+
+    //查詢公用函式
+    function sql_query(sheetID,gid,sql = null){
+      var sheetID = sheetID; // 試算表代號
+      var gid = gid; // 工作表代號
+      var sql = encodeURI(sql); // SQL 語法 做URL轉換
+      var callback = "callback"; // 回呼函數名稱
+
+      //送出查詢
+      if(sql == null){
+        $.getScript("https://spreadsheets.google.com/tq?tqx=responseHandler:" + callback + "&key=" + sheetID + "&gid=" + gid);
+      }else{
+        $.getScript("https://spreadsheets.google.com/tq?tqx=responseHandler:" + callback + "&tq=" + sql + "&key=" + sheetID + "&gid=" + gid);
+      }
+      return callback;
+    }
+
+
+    //讀取食材列表
+    function list_load_data(){
+      var sheetID = "1Nj4CDgWbeIRbv-5SAfQyujYDcXKZFrOfR83MbZ181E0", // 試算表代號
+      gid = "2128108946", // 工作表代號
+      sql = "SELECT B,C,D"; // SQL 語法
+      var default_option = '' ;
+      var res = sql_query (sheetID,gid,sql);
+      //切換語言
+      if(LANG_TYPE == 'ch'){
+        default_option = '請選擇食材';
+      }else if(LANG_TYPE == 'jp'){
+        default_option = 'Please Select';
+      }else if(LANG_TYPE == 'en'){
+        default_option = 'Please Select';
+      }
+
+      //清除原先列表的資料
+      $('select[name="query_list"]').find('option').remove().end();
+      $('select[name="query_list"]').append($("<option></option>").text(default_option)); 
+
+
+      window[res] = function(json) {
+        var show_name = '';
+        
+        var $cSel = $('select[name="query_list"]');   
+        var rowArray = json.table.rows,
+        
+        rowLength = rowArray.length,
+        html = "",
+        i, j, name_jp, name_jp , name_en;
+        //console.log(rowArray);
+        for (i = 0; i < rowLength; i++) {
+          dataGroup = rowArray[i].c;
+          dataLength = dataGroup.length;
+          for (j = 0; j < dataLength; j++) {
+            if (!dataGroup[j]) {
+              continue;
+            }          
+          }
+          name_jp = dataGroup[0].v;
+          name_ch = dataGroup[1].v;
+          name_en = dataGroup[2].v;
+          if(LANG_TYPE == 'ch'){
+            show_name = name_ch;
+          }else if(LANG_TYPE == 'jp'){
+            show_name = name_jp;
+          }else if(LANG_TYPE == 'en'){
+            show_name = name_en;
+          }
+          var _obj = {"name_ch":name_ch,"name_jp":name_jp,"name_en":name_en};
+          MATERIAL[name_ch] = _obj;
+          //console.log(MATERIAL[name_ch].name_ch);
+          $cSel.append($("<option></option>")
+               .attr("value",name_ch)
+               .text(show_name));    
+        }
+      }
+    }
+    //查詢食譜
+    function food_query(){
+      var $cSel = $('select[name="query_list"]');
+      var select_option_val = $cSel.val();
+      if(select_option_val == 'default') return;//
+
+      var sheetID = "1Nj4CDgWbeIRbv-5SAfQyujYDcXKZFrOfR83MbZ181E0", // 試算表代號
+      gid = "677707019", // 工作表代號
+      sql = "SELECT B,C,D,E,F,G,H,I,J,K,L,M,N,O WHERE J = '" + select_option_val + "' or K = '" + select_option_val + "' or L = '" + select_option_val + "' or M = '" + select_option_val + "' or N = '" + select_option_val + "' "; // SQL 語法
+
+      var res = sql_query (sheetID,gid,sql);
+      $(".container").html("查詢中...");
+      //console.log(sql);
+      window[res] = function(json) {
+        var rowArray = json.table.rows,
+        rowLength = rowArray.length,
+        html = "",
+        i, j, name_jp, name_jp,name_en, M_eff,M_eff_time,S_eff,S_eff_time,effect_type,img_rul;
+        
+        console.log(rowArray);
+        for (i = 0; i < rowLength; i++) {
+          var show_name = '';
+          var idt = new Array;
+          dataGroup = rowArray[i].c;
+          dataLength = dataGroup.length;
+          for (j = 0; j < dataLength; j++) {
+            if (!dataGroup[j]) {
+              continue;
+            }
+          }
+          name_jp = dataGroup[0].v;
+
+          if(dataGroup[1] == null){
+            name_ch = '';
+          }else{
+            name_ch = dataGroup[1].v;
+          }
+
+          if(dataGroup[2] == null){
+            name_en = '';
+          }else{
+            name_en = dataGroup[2].v;
+          }
+          
+          if(LANG_TYPE == 'ch'){
+            show_name = name_ch + '/(' + name_jp + ')';
+          }else if(LANG_TYPE == 'jp'){
+            show_name = name_jp;
+          }else if(LANG_TYPE == 'en'){
+            show_name = name_en + '/(' + name_jp + ')';
+          }
+          
+
+          //整理資料
+          M_eff = dataGroup[3].v;//補血
+          M_eff_time = dataGroup[4].v;//補血效果
+          S_eff = dataGroup[5].v;//次要效果
+          S_eff_time = dataGroup[6].v;//次要效果時間
+          effect_type = dataGroup[7].v;
+          img_rul = dataGroup[13].v
+
+          //console.log(dataGroup[0].v+"====");
+          var all_idt = ''
+          for(a = 8; a < 13; a++){
+            
+            if(dataGroup[a] === null) {
+              break;
+            }else if(dataGroup[a].v === null){
+              break;
+            }
+              //console.log(dataGroup[a]);
+              var _idt = get_material(dataGroup[a].v);
+              //idt = dataGroup[a].v;
+              idt[a-2] = _idt;
+              all_idt += "</font><font color='red'>" + idt[a-2] + "</font><br>";
+          }
+          //console.log(idt);
+          html += "<div class='item' id='"+ effect_type +"' '><br><img id='food_img' src='"+ img_rul +"' alt='image' style='height: auto;width: 80%;'><a class='name'>" + show_name + "</a><font id='HP_eff_tittle' ><img id='hp_img' src='https://i.imgur.com/58zgZjR.png' alt='image' style='width: 10%;'></img><font id='HP_eff'>" + M_eff_time + "</font><br><font id='Second_eff_tittle'>[次要效果]</font>:<font id='Second_eff'>" + S_eff + "</font><font id='Second_eff_time_tittle'>[次要效果]</font>:<font id='Second_eff_time'>" + S_eff_time + "</font><br><div name='idt'>     " +all_idt +  "</div></div>";
+          //html += "<br/>";
+        }
+        $(".container").html(html);
+      }
+    }
+
+    //讀取不同語言的材料物件
+    function get_material(str){
+      var _str;
+console.log(str)
+      console.log(MATERIAL[str].name_jp);
+      var str_jp = String(MATERIAL[str].name_jp);
+      if(LANG_TYPE == 'ch'){
+        _str = String(MATERIAL[str].name_ch);
+        _str += '/' + str_jp;
+      }else if(LANG_TYPE == 'jp'){
+        _str = String(MATERIAL[str].name_jp);
+      }else if(LANG_TYPE == 'en'){
+        _str = String(MATERIAL[str].name_en);
+        _str += '/' + str_jp;
+      }
+      return _str;
+    }
+
+    //篩選器
+    function filter_start(selector){
+      $(selector).change(function(){
+        if(this.checked){
+          console.log(this.value+",open");
+          $("#"+this.value).show();
+        }else{
+          console.log(this.value+",close");
+          $("#"+this.value).hide();
+        }
+      });
+    }
+    //語言選擇
+    function lang_select(selector){
+      $(selector).change(function(){
+        LANG_TYPE = $('input[name=lang_checkbox]:checked').val();
+        switch (LANG_TYPE){
+
+        case 'ch':
+          $('#HP_limit_name').text('血量上限');
+          $('#STA_name').text('回復耐力');
+          $('#STA_limit_name').text('耐力上限');
+          $('#Speed_UP_name').text('提高速度');
+          $('#Cold_def_name').text('防護寒冷');
+          $('#Hot_def_name').text('防護酷暑');
+          $('#Lighting_def_name').text('防護雷電');
+          $('#Atk_up_name').text('增加攻擊力');
+          $('#Def_up_name').text('增加防禦力');
+          $('#title').text('薩爾達食譜快速檢索器');
+          break;
+        case 'jp':
+          $('#HP_limit_name').text('HP_limit');
+          $('#STA_name').text('STA');
+          $('#STA_limit_name').text('STA_limit');
+          $('#Speed_UP_name').text('Speed_UP_');
+          $('#Cold_def_name').text('Cold_def');
+          $('#Hot_def_name').text('Hot_def');
+          $('#Lighting_def_name').text('Lighting_def');
+          $('#Atk_up_name').text('Atk_up');
+          $('#Def_up_name').text('Def_up'); 
+          $('#title').text('Zelda BOW recipe tool'); 
+          break;
+        case 'en':
+          $('#HP_limit_name').text = 'HP_limit';
+          $('#STA_name').text('rstore STA');
+          $('#STA_limit_name').text('STA_limit');
+          $('#Speed_UP_name').text('Speed_UP_');
+          $('#Cold_def_name').text('Cold_def');
+          $('#Hot_def_name').text('Hot_def');
+          $('#Lighting_def_name').text('Lighting_def');
+          $('#Atk_up_name').text('Atk_up');
+          $('#Def_up_name').text('Def_up');
+          $('#title').text('Zelda BOW recipe tool'); 
+          break;
+        }
+
+        list_load_data();
+        var html = '';
+        $(".container").html(html);
+      });
+      
+    }
+
+    
+
+
+
+    //網頁開始執行
+    $(function ()  {
+      $('#container').masonry({
+          // options
+          itemSelector : '.item',
+          columnWidth : 240
+        });
+
+      console.log('page start');
+      
+      list_load_data();
+      //$('select[name="query_list"]').change(food_query());
+      $('select[name="query_list"]').change(function(){
+            food_query();
+          });
+      filter_start('.filter_checkbox');  
+      lang_select('input[name=lang_checkbox]');
+    });
+
+
+    </script>
+
+
+    </head>
+    <body >
+
+    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;opacity:0.9;text-align:center;">
+      <a id='title'>薩爾達食譜快速檢索器 0.5版</a>
+    </div>
+    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;border:4px black double;opacity:0.9;text-align:center;">
+      <input type="radio" name="lang_checkbox" value="ch" checked> 繁體中文</input>
+      <input type="radio" name="lang_checkbox" value="jp" > 日本語</input>
+      <input type="radio" name="lang_checkbox" value="en" > English</input>
+    </div>
+    <div style="text-align-last:center;">
+    <select style="font-size:24px;" name="query_list" class="opts" >
+      <option selected value="default">請選擇食材</option>
+    </select>
+    </div>
+    <div></div>
+    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;border:4px black double;opacity:0.9;text-align:center;">
+      <input type="checkbox" class="filter_checkbox" id="HP_limit_filter" value="HP_limit" checked></input><a id="HP_limit_name">血量上限</a>
+      <input type="checkbox" class="filter_checkbox" id="STA_filter" value="STA" checked></input><a id="STA_name">回復耐力</a>
+      <input type="checkbox" class="filter_checkbox" id="STA_limit_filter" value="STA_limit" checked></input><a id="STA_limit_name">耐力上限</a>
+      <input type="checkbox" class="filter_checkbox" id="Speed_UP_filter" value="Speed_UP" checked></input><a id="Speed_UP_name">提高速度</a>
+      <input type="checkbox" class="filter_checkbox" id="Cold_def_filter" value="Cold_def" checked></input><a id="Cold_def_name">防護寒冷</a>
+      <input type="checkbox" class="filter_checkbox" id="Hot_def_filter" value="Hot_def" checked></input><a id="Hot_def_name">防護酷暑</a>
+      <input type="checkbox" class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" checked></input><a id="Lighting_def_name">防護雷電</a>
+      <input type="checkbox" class="filter_checkbox" id="Atk_up_filter" value="Atk_up" checked></input><a id="Atk_up_name">增加攻擊力</a>
+      <input type="checkbox" class="filter_checkbox" id="Def_up_filter" value="Def_up" checked></input><a id="Def_up_name">增加防禦力</a>
+    </div>
+    <!--button onclick="food_query()">查詢相關料理</button-->
+    <div id=main ><div class='container' id='show_table'></div></div>
+
+                                      
+  </body>
+</html>

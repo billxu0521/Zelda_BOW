@@ -1,0 +1,72 @@
+.item {
+  width: 280px;
+  margin: 10px;
+  float: left;
+  display: block;
+  background-color:#FFFFFF;
+  padding:8px;
+  margin-bottom:4px;
+  border:1px double;
+  opacity:0.9;
+  text-align:center;
+}
+
+.item img{
+  display: block;
+  max-width: 100%;
+}
+
+.item .name{
+  font-size: 24px;
+  color: #8bad00 ;
+}
+
+.item .hp_img{
+  display: block;
+}
+
+#main{
+  text-align:center;
+}
+#show_table{
+  margin:0 auto;
+  border: 2px solid blue; 
+  max-width: 90%;
+}
+.HP_eff{
+  color :'blue';
+}
+
+.HP_eff_tittle{
+  color :'blue';
+}
+
+.Second_eff{
+  color :'blue';
+}
+
+.Second_eff_tittle{
+  color :'blue';
+}
+
+.Second_eff_time{
+  color :'blue';
+}
+
+.Second_eff_time_tittle{
+  color :'blue';
+}
+
+body {
+  background: url("https://3.bp.blogspot.com/-KXyvbGYg8Jg/WfWpK1QlreI/AAAAAAAAcsU/oOcSA-AzReUfUpLL88cA7WVN5yL_6wddgCLcBGAs/s1600/zelda.jpg") no-repeat center center fixed;
+  background-color: #FFFFFF;
+  background-position:  center bottom;
+  background-attachment: fixed;   
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
+  font-size: 16px;
+  min-width: 100%;
+  min-height: 100%;
+}
