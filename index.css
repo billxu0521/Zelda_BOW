@@ -1,18 +1,18 @@
 @media only screen and (min-width: 769px){
-  #show_table{
-    /*margin:0 auto;
-    border: 2px; */
+  .container{
+    height: 100% !important ;
     max-width: 90%;
-    display: inline-block;
+    display: block;
     padding: 10px;
-    margin: 10 10 10 10px;
+    margin:0 auto;
     overflow:hidden;
     width:80%;
     column-count: 4;
     column-gap: 1em;
+    text-align:center;
   }
   .item {
-    display: table;
+    display: inline-block;
     background-color:#FFFFFF;
     padding:8px;
     margin-bottom:4px;
@@ -20,23 +20,39 @@
     opacity:0.9;
     display: inline-block;
     border-radius:10px;
-    margin: 1 1 1 1px;
+    margin: 5px 5px 5px 0;
+    overflow:hidden;
     box-shadow:6px 6px 10px #000;
     width: 90%;
+    text-align:center;
   }
+  body {
+    background: url("https://3.bp.blogspot.com/-KXyvbGYg8Jg/WfWpK1QlreI/AAAAAAAAcsU/oOcSA-AzReUfUpLL88cA7WVN5yL_6wddgCLcBGAs/s1600/zelda.jpg") no-repeat center center fixed;
+    background-color: #FFFFFF;
+    background-position:  center bottom;
+    background-attachment: fixed;   
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+    font-size: 16px;
+    font-family:'Microsoft JhengHei';
+    /*min-width: 100%;
+    min-height: 100%;*/
+}
 }
 @media only screen and (min-width: 0px) and (max-width: 769px){
-  #show_table{
-    /*margin:0 auto;
-    border: 2px; */
+  .container{
+    height: 100% !important ;
     max-width: 90%;
-    display: inline-block;
+    display: block;
     padding: 10px;
     margin: 5px 5px 5px 0;
     overflow:hidden;
     width:90%;
     column-count: 1;
     column-gap: 1em;
+    text-align:center;
   }
   .item {
     display: block;
@@ -48,7 +64,23 @@
     border-radius:10px;
     display: inline-block;
     box-shadow:6px 6px 10px #000;
+    text-align:center;
   }
+
+  body {
+    background: url("https://3.bp.blogspot.com/-KXyvbGYg8Jg/WfWpK1QlreI/AAAAAAAAcsU/oOcSA-AzReUfUpLL88cA7WVN5yL_6wddgCLcBGAs/s1600/zelda.jpg") ;
+    background-color: #FFFFFF;
+    background-position:  center bottom;
+    background-attachment: fixed;   
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+    font-size: 16px;
+    font-family:'Microsoft JhengHei';
+    /*min-width: 100%;
+    min-height: 100%;*/
+}
 }
 .item img{
   margin:0 auto;
@@ -59,6 +91,11 @@
 .item .name{
   font-size: 24px;
   color: #8bad00 ;
+}
+
+.item .jp_name{
+  font-size: 18px;
+  color: #81C0C0 ;
 }
 
 .item .hp_img{
@@ -121,44 +158,37 @@
 }
 
 #idt{
-  color :#A52A2A;
+  color :#5B4B00;
 }
-
+#jp_idt{
+  color :#984B4B;
+}
+#query_select{
+  text-align:center;
+}
 #query_list{
   margin:5px;
   background: rgba(255,255,255,255.3);
   color:#000000;
   text-shadow:0 1px 0 rgba(0,0,0,0.4);
   font-size:24px;
-  text-align: center;
-  text-align-last: center;
-}
-
-body {
-  background: url("https://3.bp.blogspot.com/-KXyvbGYg8Jg/WfWpK1QlreI/AAAAAAAAcsU/oOcSA-AzReUfUpLL88cA7WVN5yL_6wddgCLcBGAs/s1600/zelda.jpg") no-repeat center center fixed;
-  background-color: #FFFFFF;
-  background-position:  center bottom;
-  background-attachment: fixed;   
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; 
-  font-size: 16px;
-  min-width: 100%;
-  min-height: 100%;
+  text-align-last:center;
+  display: inline-block;
 }
 
 footer{
   display:flex;
-position: bottom;
-bottom: 0;
-left: 0;
-right: 0;
-height: 50px;
-width: 100%;
-border-top: 1px solid white;
-justify-content:center;
-   align-items:center;
- 
+  box-sizing: border-box;
+  color:#FFFFFF;
+  text-shadow:0 0 4px rgba(100,100,100,1);
+  position: bottom;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid white;
+  justify-content:center;
+  align-items:center; 
 }
 

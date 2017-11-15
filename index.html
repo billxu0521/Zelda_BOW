@@ -34,7 +34,22 @@
    
     var LANG_TYPE = 'ch';//切換語言用
     var MATERIAL = new Object(); //材料物件 
-
+    var TYPE = new Array;
+    var TYPE_SHOW = {
+      'HP':{"name_ch":"---","name_jp":"---","name_en":"---"},
+      'STA':{"name_ch":"回復耐力","name_jp":"がんばりゲージ回復","name_en":"Energizing"},
+      'HP_limit':{"name_ch":"提高愛心最大值","name_jp":"ハート上限","name_en":"Hearty"},
+      'STA_limit':{"name_ch":"提高耐力最大值","name_jp":"がんばりゲージ上限","name_en":"Enduring"},
+      'Lighting_def':{"name_ch":"防護雷電","name_jp":"耐電","name_en":"Electro"},
+      'Hot_def':{"name_ch":"防護酷暑","name_jp":"耐暑","name_en":"Chilly"},
+      'Cold_def':{"name_ch":"防護寒冷","name_jp":"耐寒","name_en":"Spicy"},
+      'Atk_up':{"name_ch":"增加攻擊力","name_jp":"攻撃力アップ","name_en":"Mighty"},
+      'Def_up':{"name_ch":"增加防禦力","name_jp":"防御アップ","name_en":"Tough"},
+      'Speed_UP':{"name_ch":"提升速度","name_jp":"移動速度アップ","name_en":"Hasty"},
+      'Fire_def':{"name_ch":"防護火焰","name_jp":"耐火","name_en":"Fireproof"},
+      'Quiet_up':{"name_ch":"安靜","name_jp":"音を消す効果","name_en":"Sneaky"}
+    };
+    console.log(TYPE_SHOW);
     //查詢公用函式
     function sql_query(sheetID,gid,sql = null){
       var sheetID = sheetID; // 試算表代號
@@ -141,7 +156,13 @@
             }
           }
           name_jp = dataGroup[0].v;
+          if(dataGroup[7].v in TYPE) {
+            TYPE[dataGroup[7].v] += 1;
+          }else {
+              TYPE[dataGroup[7].v] = 1;
+          }
 
+          console.log(TYPE);
           if(dataGroup[1] == null){
             name_ch = '';
           }else{
@@ -155,18 +176,17 @@
           }
           
           if(LANG_TYPE == 'ch'){
-            show_name = name_ch + '/(' + name_jp + ')';
+            show_name = '<a class="name">'+name_ch + '</a>/<a class="jp_name">(' + name_jp + ')</a>';
           }else if(LANG_TYPE == 'jp'){
-            show_name = name_jp;
+            show_name = '<a class="name">(' + name_jp + ')</a>';
           }else if(LANG_TYPE == 'en'){
-            show_name = name_en + '/(' + name_jp + ')';
+            show_name = '<a class="name">'+name_en + '</a>/<a class="jp_name">(' + name_jp + ')</a>';
           }
           
-
           //整理資料
           M_eff = dataGroup[3].v;//補血
           M_eff_time = dataGroup[4].v;//補血效果
-          S_eff = dataGroup[5].v;//次要效果
+          S_eff = show_type(dataGroup[7].v);//次要效果
           S_eff_time = dataGroup[6].v;//次要效果時間
           effect_type = dataGroup[7].v;
           img_rul = dataGroup[13].v
@@ -184,14 +204,40 @@
               var _idt = get_material(dataGroup[a].v);
               //idt = dataGroup[a].v;
               idt[a-2] = _idt;
-              all_idt += "</font><a id='idt'>" + idt[a-2] + "</a><br>";
+              all_idt +=  idt[a-2] + "<br>";
           }
           //console.log(idt);
-          html += "<div class='item' id='"+ effect_type +"' '><a class='name'>" + show_name + "</a><div id='food_hp'>❤" + M_eff_time + "</div><div><font id='Second_eff_tittle'>[次要效果]</font>:<font id='Second_eff'>" + S_eff + "</font><font id='Second_eff_time_tittle'>[次要效果]</font>:<font id='Second_eff_time'>" + S_eff_time + "</font></div><br><div name='idt'>     " +all_idt +  "</div></div>";
+          html += "<div class='item' id='"+ effect_type +"' '>" + show_name + "<hr><div id='food_hp'>❤" + M_eff_time + "</div><hr><div>"+ S_eff +"/<a id='Second_eff_time'>" + S_eff_time + "</a></div><hr><div name='idt'>     " +all_idt +  "</div></div>";
           //html += "<br/>";
         }
         $(".container").html(html);
+        $("#HP_limit_count").html(TYPE['HP_limit']== null ? '(0)' : '('+TYPE['HP_limit']+')');
+        $("#STA_name_count").html(TYPE['STA'] == null ? '(0)' : '('+TYPE['STA']+')');
+        $("#STA_limit_count").html(TYPE['STA_limit'] == null ? '(0)' : '('+TYPE['STA_limit']+')');
+        $("#Speed_UP_count").html(TYPE['Speed_UP'] == null ? '(0)' : '('+TYPE['Speed_UP']+')');
+        $("#Cold_def_count").html(TYPE['Cold_def'] == null ? '(0)' : '('+TYPE['Cold_def']+')');
+        $("#Hot_def_count").html(TYPE['Hot_def'] == null ? '(0)' : '('+TYPE['Hot_def']+')');
+        $("#Lighting_def_count").html(TYPE['Lighting_def'] == null ? 0 : TYPE['Lighting_def']+')');
+        $("#Atk_up_count").html(TYPE['Atk_up'] == null ? '(0)' : '('+TYPE['Atk_up']+')');
+        $("#Def_up_count").html(TYPE['Def_up'] == null ? '(0)' : '('+TYPE['Def_up']+')');
+        $("#Quiet_up_count").html(TYPE['Quiet_up'] == null ? '(0)' : '('+TYPE['Quiet_up']+')');
+        $("#Fire_def_count").html(TYPE['Fire_def'] == null ? '(0)' : '('+TYPE['Fire_def']+')');
       }
+    }
+
+    function show_type(S_eff){
+      var _str;
+      console.log(S_eff)
+      console.log(TYPE_SHOW[S_eff]);
+      if(LANG_TYPE == 'ch'){
+        _str = '<a id="Second_eff">'+String(TYPE_SHOW[S_eff].name_ch)+'</a>';
+      }else if(LANG_TYPE == 'jp'){
+        _str = '<a id="Second_eff">'+String(TYPE_SHOW[S_eff].name_jp)+'</a>';
+      }else if(LANG_TYPE == 'en'){
+        _str = '<a id="Second_eff">'+String(TYPE_SHOW[S_eff].name_en)+'</a>';
+        _str += '/' + str_jp+'</a>';
+      }
+      return _str;
     }
 
     //讀取不同語言的材料物件
@@ -199,15 +245,15 @@
       var _str;
       //console.log(str)
       //console.log(MATERIAL[str].name_jp);
-      var str_jp = String(MATERIAL[str].name_jp);
+      var str_jp = '<a id="jp_idt">'+String(MATERIAL[str].name_jp)+'</a>';
       if(LANG_TYPE == 'ch'){
-        _str = String(MATERIAL[str].name_ch);
+        _str = '<a id="idt">'+String(MATERIAL[str].name_ch)+'</a>';
         _str += '/' + str_jp;
       }else if(LANG_TYPE == 'jp'){
-        _str = String(MATERIAL[str].name_jp);
+        _str = '<a id="idt">'+String(MATERIAL[str].name_jp)+'</a>';
       }else if(LANG_TYPE == 'en'){
-        _str = String(MATERIAL[str].name_en);
-        _str += '/' + str_jp;
+        _str = '<a id="idt">'+String(MATERIAL[str].name_en)+'</a>';
+        _str += '/' + str_jp+'</a>';
       }
       return _str;
     }
@@ -231,40 +277,46 @@
         switch (LANG_TYPE){
 
         case 'ch':
-          $('#HP_limit_name').text('血量上限');
-          $('#STA_name').text('回復耐力');
-          $('#STA_limit_name').text('耐力上限');
-          $('#Speed_UP_name').text('提高速度');
-          $('#Cold_def_name').text('防護寒冷');
-          $('#Hot_def_name').text('防護酷暑');
-          $('#Lighting_def_name').text('防護雷電');
-          $('#Atk_up_name').text('增加攻擊力');
-          $('#Def_up_name').text('增加防禦力');
-          $('#title').text('薩爾達食譜快速檢索器');
+          $('#HP_limit_name').text(TYPE_SHOW['HP_limit'].name_ch);
+          $('#STA_name').text(TYPE_SHOW['STA'].name_ch);
+          $('#STA_limit_name').text(TYPE_SHOW['STA_limit'].name_ch);
+          $('#Speed_UP_name').text(TYPE_SHOW['Speed_UP'].name_ch);
+          $('#Cold_def_name').text(TYPE_SHOW['Cold_def'].name_ch);
+          $('#Hot_def_name').text(TYPE_SHOW['Hot_def'].name_ch);
+          $('#Lighting_def_name').text(TYPE_SHOW['Lighting_def'].name_ch);
+          $('#Atk_up_name').text(TYPE_SHOW['Atk_up'].name_ch);
+          $('#Def_up_name').text(TYPE_SHOW['Def_up'].name_ch);
+          $('#Quiet_up_name').text(TYPE_SHOW['Quiet_up'].name_ch);
+          $('#Fire_def_name').text(TYPE_SHOW['Fire_def'].name_ch);
+          $('#title').text('薩爾達食譜快速檢索器(文字版)');
           break;
         case 'jp':
-          $('#HP_limit_name').text('HP_limit');
-          $('#STA_name').text('STA');
-          $('#STA_limit_name').text('STA_limit');
-          $('#Speed_UP_name').text('Speed_UP_');
-          $('#Cold_def_name').text('Cold_def');
-          $('#Hot_def_name').text('Hot_def');
-          $('#Lighting_def_name').text('Lighting_def');
-          $('#Atk_up_name').text('Atk_up');
-          $('#Def_up_name').text('Def_up'); 
-          $('#title').text('Zelda BOW recipe tool'); 
+          $('#HP_limit_name').text(TYPE_SHOW['HP_limit'].name_jp);
+          $('#STA_name').text(TYPE_SHOW['STA'].name_jp);
+          $('#STA_limit_name').text(TYPE_SHOW['STA_limit'].name_jp);
+          $('#Speed_UP_name').text(TYPE_SHOW['Speed_UP'].name_jp);
+          $('#Cold_def_name').text(TYPE_SHOW['Cold_def'].name_jp);
+          $('#Hot_def_name').text(TYPE_SHOW['Hot_def'].name_jp);
+          $('#Lighting_def_name').text(TYPE_SHOW['Lighting_def'].name_jp);
+          $('#Atk_up_name').text(TYPE_SHOW['Atk_up'].name_jp);
+          $('#Def_up_name').text(TYPE_SHOW['Def_up'].name_jp);
+          $('#Quiet_up_name').text(TYPE_SHOW['Quiet_up'].name_jp);
+          $('#Fire_def_name').text(TYPE_SHOW['Fire_def'].name_jp);
+          $('#title').text('Zelda BOW recipe tool(text only)'); 
           break;
         case 'en':
-          $('#HP_limit_name').text = 'HP_limit';
-          $('#STA_name').text('rstore STA');
-          $('#STA_limit_name').text('STA_limit');
-          $('#Speed_UP_name').text('Speed_UP_');
-          $('#Cold_def_name').text('Cold_def');
-          $('#Hot_def_name').text('Hot_def');
-          $('#Lighting_def_name').text('Lighting_def');
-          $('#Atk_up_name').text('Atk_up');
-          $('#Def_up_name').text('Def_up');
-          $('#title').text('Zelda BOW recipe tool'); 
+          $('#HP_limit_name').text(TYPE_SHOW['HP_limit'].name_en);
+          $('#STA_name').text(TYPE_SHOW['STA'].name_en);
+          $('#STA_limit_name').text(TYPE_SHOW['STA_limit'].name_en);
+          $('#Speed_UP_name').text(TYPE_SHOW['Speed_UP'].name_en);
+          $('#Cold_def_name').text(TYPE_SHOW['Cold_def'].name_en);
+          $('#Hot_def_name').text(TYPE_SHOW['Hot_def'].name_en);
+          $('#Lighting_def_name').text(TYPE_SHOW['Lighting_def'].name_en);
+          $('#Atk_up_name').text(TYPE_SHOW['Atk_up'].name_en);
+          $('#Def_up_name').text(TYPE_SHOW['Def_up'].name_en);
+          $('#Quiet_up_name').text(TYPE_SHOW['Quiet_up'].name_en);
+          $('#Fire_def_name').text(TYPE_SHOW['Fire_def'].name_en);
+          $('#title').text('Zelda BOW recipe tool(text only)'); 
           break;
         }
 
@@ -281,10 +333,10 @@
 
     //網頁開始執行
     $(function ()  {
-      $('#container').masonry({
+      $('.container').masonry({
           // options
           itemSelector : '.item',
-          columnWidth : 240,
+          columnWidth : 200,
           animate:true
         });
 
@@ -308,34 +360,34 @@
     <body >
 
     <div id='title'>
-      薩爾達食譜快速檢索器
+      薩爾達食譜快速檢索器(文字版)
     </div>
     <div id='lan_select'>
       <input type="radio" name="lang_checkbox" value="ch" checked> 繁體中文</input>
       <input type="radio" name="lang_checkbox" value="jp" > 日本語</input>
       <input type="radio" name="lang_checkbox" value="en" > English</input>
     </div>
-    <div style="text-align-last:center;">
+    <div id="query_select" >
     <select id="query_list" name="query_list" class="opts" >
       <option selected value="default">請選擇食材</option>
     </select>
     </div>
     <div></div>
     <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;border:4px black double;opacity:0.9;text-align:center;">
-      <input type="checkbox" class="filter_checkbox" id="HP_limit_filter" value="HP_limit" checked></input><a id="HP_limit_name">血量上限</a>
-      <input type="checkbox" class="filter_checkbox" id="STA_filter" value="STA" checked></input><a id="STA_name">回復耐力</a>
-      <input type="checkbox" class="filter_checkbox" id="STA_limit_filter" value="STA_limit" checked></input><a id="STA_limit_name">耐力上限</a>
-      <input type="checkbox" class="filter_checkbox" id="Speed_UP_filter" value="Speed_UP" checked></input><a id="Speed_UP_name">提高速度</a>
-      <input type="checkbox" class="filter_checkbox" id="Cold_def_filter" value="Cold_def" checked></input><a id="Cold_def_name">防護寒冷</a>
-      <input type="checkbox" class="filter_checkbox" id="Hot_def_filter" value="Hot_def" checked></input><a id="Hot_def_name">防護酷暑</a>
-      <input type="checkbox" class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" checked></input><a id="Lighting_def_name">防護雷電</a>
-      <input type="checkbox" class="filter_checkbox" id="Atk_up_filter" value="Atk_up" checked></input><a id="Atk_up_name">增加攻擊力</a>
-      <input type="checkbox" class="filter_checkbox" id="Def_up_filter" value="Def_up" checked></input><a id="Def_up_name">增加防禦力</a>
+      <input type="checkbox" class="filter_checkbox" id="HP_limit_filter" value="HP_limit" checked></input><a id="HP_limit_name">血量上限</a><a id="HP_limit_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="STA_filter" value="STA" checked></input><a id="STA_name">回復耐力</a><a id="STA_name_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="STA_limit_filter" value="STA_limit" checked></input><a id="STA_limit_name">耐力上限</a><a id="STA_limit_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Speed_UP_filter" value="Speed_UP" checked></input><a id="Speed_UP_name">提高速度</a><a id="Speed_UP_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Cold_def_filter" value="Cold_def" checked></input><a id="Cold_def_name">防護寒冷</a><a id="Cold_def_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Hot_def_filter" value="Hot_def" checked></input><a id="Hot_def_name">防護酷暑</a><a id="Hot_def_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" checked></input><a id="Lighting_def_name">防護雷電</a><a id="Lighting_def_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Atk_up_filter" value="Atk_up" checked></input><a id="Atk_up_name">增加攻擊力</a><a id="Atk_up_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Def_up_filter" value="Def_up" checked></input><a id="Def_up_name">增加防禦力</a><a id="Def_up_count">(0)</a>
     </div>
     <!--button onclick="food_query()">查詢相關料理</button-->
-    <div id=main ><div class='container' id='show_table'></div></div>
+    <div class='container' id='show_table' style="height: 100%;"></div>
   <footer>
-  <div id='footer'>Power by: Gameqb.net
+  <div id='footer'>Power by: 橫隔膜@Gameqb.net
   </div>
   
   
