@@ -1,17 +1,60 @@
-.item {
-  width: 280px;
-  margin: 10px;
-  float: left;
-  display: block;
-  background-color:#FFFFFF;
-  padding:8px;
-  margin-bottom:4px;
-  border:1px double;
-  opacity:0.9;
-  text-align:center;
+@media only screen and (min-width: 769px){
+  #show_table{
+    /*margin:0 auto;
+    border: 2px; */
+    max-width: 90%;
+    display: inline-block;
+    border: 1px dotted #4F4F4F;
+    padding: 10px;
+    margin: 5px 5px 5px 0;
+    overflow:hidden;
+    width:80%;
+    column-count: 4;
+    column-gap: 1em;
+    text-align:center;
+  }
+  .item {
+    display: table;
+    background-color:#FFFFFF;
+    padding:8px;
+    margin-bottom:4px;
+    border:1px double;
+    opacity:0.9;
+    text-align:center;
+    display: inline-block;
+    margin: 1 1 1 1px;
+    width: 90%;
+  }
 }
+@media only screen and (min-width: 0px) and (max-width: 769px){
+  #show_table{
+    /*margin:0 auto;
+    border: 2px; */
+    max-width: 90%;
+    display: inline-block;
+    border: 1px dotted #4F4F4F;
+    padding: 10px;
+    margin: 5px 5px 5px 0;
+    overflow:hidden;
+    width:90%;
+    column-count: 1;
+    column-gap: 1em;
+    text-align:center;
+  }
+  .item {
+    display: block;
+    background-color:#FFFFFF;
+    padding:8px;
+    margin-bottom:4px;
+    border:1px double;
+    opacity:0.9;
+    text-align:center;
+    display: inline-block;
 
+  }
+}
 .item img{
+  margin:0 auto;
   display: block;
   max-width: 100%;
 }
@@ -22,17 +65,19 @@
 }
 
 .item .hp_img{
+  margin:0 auto;
   display: block;
+}
+
+.food_hp 
+{
+  color: 'red' ;
 }
 
 #main{
   text-align:center;
 }
-#show_table{
-  margin:0 auto;
-  border: 2px solid blue; 
-  max-width: 90%;
-}
+
 .HP_eff{
   color :'blue';
 }
@@ -70,3 +115,4 @@ body {
   min-width: 100%;
   min-height: 100%;
 }
+
