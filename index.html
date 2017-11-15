@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="KeyWords" content="zelda,the legend of zelda,breath of the wild,薩爾達傳說,曠野之息,荒野之息,WiiU,nintendo switch,Switch"/>
+    <meta name="Description" content="About the legend of zelda breath of the wild recipes"/>
 
-    <title>Zelda BoW recipe_tool</title>
+
+    <title>Zelda BOtW recipe_tool</title>
     <link rel="stylesheet" type="text/css" href="index.css">
 
     <script type="text/javascript">
@@ -288,7 +291,7 @@
           $('#Def_up_name').text(TYPE_SHOW['Def_up'].name_ch);
           $('#Quiet_up_name').text(TYPE_SHOW['Quiet_up'].name_ch);
           $('#Fire_def_name').text(TYPE_SHOW['Fire_def'].name_ch);
-          $('#title').text('薩爾達食譜快速檢索器(文字版)');
+          $('#title').text('薩爾達傳說~曠野之息~食譜快速檢索器(文字版)');
           break;
         case 'jp':
           $('#HP_limit_name').text(TYPE_SHOW['HP_limit'].name_jp);
@@ -302,7 +305,7 @@
           $('#Def_up_name').text(TYPE_SHOW['Def_up'].name_jp);
           $('#Quiet_up_name').text(TYPE_SHOW['Quiet_up'].name_jp);
           $('#Fire_def_name').text(TYPE_SHOW['Fire_def'].name_jp);
-          $('#title').text('Zelda BOW recipe tool(text only)'); 
+          $('#title').text('ゼルダの伝説 ブレス オブ ザ ワイルド 全料理 tool(text only)'); 
           break;
         case 'en':
           $('#HP_limit_name').text(TYPE_SHOW['HP_limit'].name_en);
@@ -316,13 +319,24 @@
           $('#Def_up_name').text(TYPE_SHOW['Def_up'].name_en);
           $('#Quiet_up_name').text(TYPE_SHOW['Quiet_up'].name_en);
           $('#Fire_def_name').text(TYPE_SHOW['Fire_def'].name_en);
-          $('#title').text('Zelda BOW recipe tool(text only)'); 
+          $('#title').text('The Legend of Zelda: Breath of the Wild recipe tool(text only)'); 
           break;
         }
 
         list_load_data();
         var html = '';
         $(".container").html(html);
+        $("#HP_limit_count").html('(0)');
+        $("#STA_name_count").html('(0)');
+        $("#STA_limit_count").html('(0)');
+        $("#Speed_UP_count").html('(0)');
+        $("#Cold_def_count").html('(0)');
+        $("#Hot_def_count").html('(0)');
+        $("#Lighting_def_count").html('(0)');
+        $("#Atk_up_count").html('(0)');
+        $("#Def_up_count").html('(0)');
+        $("#Quiet_up_count").html('(0)');
+        $("#Fire_def_count").html('(0)');
       });
       
     }
@@ -360,7 +374,7 @@
     <body >
 
     <div id='title'>
-      薩爾達食譜快速檢索器(文字版)
+      薩爾達傳說~曠野之息~食譜快速檢索器(文字版)
     </div>
     <div id='lan_select'>
       <input type="radio" name="lang_checkbox" value="ch" checked> 繁體中文</input>
