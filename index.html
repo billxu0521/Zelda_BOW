@@ -6,7 +6,7 @@
 
     <title>Zelda BoW recipe_tool</title>
     <link rel="stylesheet" type="text/css" href="index.css">
-    
+
     <script type="text/javascript">
     </script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.min.js"></script>
@@ -171,7 +171,7 @@
           effect_type = dataGroup[7].v;
           img_rul = dataGroup[13].v
 
-          //console.log(dataGroup[0].v+"====");
+          console.log(dataGroup[0].v+"====");
           var all_idt = ''
           for(a = 8; a < 13; a++){
             
@@ -184,7 +184,7 @@
               var _idt = get_material(dataGroup[a].v);
               //idt = dataGroup[a].v;
               idt[a-2] = _idt;
-              all_idt += "</font><font color='red'>" + idt[a-2] + "</font><br>";
+              all_idt += "</font><a id='idt'>" + idt[a-2] + "</a><br>";
           }
           //console.log(idt);
           html += "<div class='item' id='"+ effect_type +"' '><a class='name'>" + show_name + "</a><div id='food_hp'>❤" + M_eff_time + "</div><div><font id='Second_eff_tittle'>[次要效果]</font>:<font id='Second_eff'>" + S_eff + "</font><font id='Second_eff_time_tittle'>[次要效果]</font>:<font id='Second_eff_time'>" + S_eff_time + "</font></div><br><div name='idt'>     " +all_idt +  "</div></div>";
@@ -197,8 +197,8 @@
     //讀取不同語言的材料物件
     function get_material(str){
       var _str;
-console.log(str)
-      console.log(MATERIAL[str].name_jp);
+      //console.log(str)
+      //console.log(MATERIAL[str].name_jp);
       var str_jp = String(MATERIAL[str].name_jp);
       if(LANG_TYPE == 'ch'){
         _str = String(MATERIAL[str].name_ch);
@@ -285,7 +285,7 @@ console.log(str)
           // options
           itemSelector : '.item',
           columnWidth : 240,
-          //animate:true
+          animate:true
         });
 
       
@@ -307,16 +307,16 @@ console.log(str)
     </head>
     <body >
 
-    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;opacity:0.9;text-align:center;">
-      <a id='title'>薩爾達食譜快速檢索器 0.5版</a>
+    <div id='title'>
+      薩爾達食譜快速檢索器
     </div>
-    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;border:4px black double;opacity:0.9;text-align:center;">
+    <div id='lan_select'>
       <input type="radio" name="lang_checkbox" value="ch" checked> 繁體中文</input>
       <input type="radio" name="lang_checkbox" value="jp" > 日本語</input>
       <input type="radio" name="lang_checkbox" value="en" > English</input>
     </div>
     <div style="text-align-last:center;">
-    <select style="font-size:24px;" name="query_list" class="opts" >
+    <select id="query_list" name="query_list" class="opts" >
       <option selected value="default">請選擇食材</option>
     </select>
     </div>
@@ -334,7 +334,13 @@ console.log(str)
     </div>
     <!--button onclick="food_query()">查詢相關料理</button-->
     <div id=main ><div class='container' id='show_table'></div></div>
-    
+  <footer>
+  <div id='footer'>Power by: Gameqb.net
+  </div>
+  
+  
+  </footer>
                                       
   </body>
+  
 </html>

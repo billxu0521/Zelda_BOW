@@ -4,14 +4,12 @@
     border: 2px; */
     max-width: 90%;
     display: inline-block;
-    border: 1px dotted #4F4F4F;
     padding: 10px;
-    margin: 5px 5px 5px 0;
+    margin: 10 10 10 10px;
     overflow:hidden;
     width:80%;
     column-count: 4;
     column-gap: 1em;
-    text-align:center;
   }
   .item {
     display: table;
@@ -20,9 +18,10 @@
     margin-bottom:4px;
     border:1px double;
     opacity:0.9;
-    text-align:center;
     display: inline-block;
+    border-radius:10px;
     margin: 1 1 1 1px;
+    box-shadow:6px 6px 10px #000;
     width: 90%;
   }
 }
@@ -32,14 +31,12 @@
     border: 2px; */
     max-width: 90%;
     display: inline-block;
-    border: 1px dotted #4F4F4F;
     padding: 10px;
     margin: 5px 5px 5px 0;
     overflow:hidden;
     width:90%;
     column-count: 1;
     column-gap: 1em;
-    text-align:center;
   }
   .item {
     display: block;
@@ -48,9 +45,9 @@
     margin-bottom:4px;
     border:1px double;
     opacity:0.9;
-    text-align:center;
+    border-radius:10px;
     display: inline-block;
-
+    box-shadow:6px 6px 10px #000;
   }
 }
 .item img{
@@ -69,6 +66,27 @@
   display: block;
 }
 
+#title{
+  background-color:#969456;
+  padding:8px;
+  margin-bottom:4px;
+  opacity:1.0;
+  border-radius:10px;
+  text-align:center;
+  color:#FFFFFF;
+  font-size: 20px;
+  text-shadow:1px 1px 10px #000;
+}
+
+#lan_select{ 
+  background-color:#fefec0;
+  padding:8px;
+  margin-bottom:4px;
+  border:4px black double;
+  opacity:0.9;
+  text-align:center;
+  color:#705B28;
+}
 .food_hp 
 {
   color: 'red' ;
@@ -86,20 +104,34 @@
   color :'blue';
 }
 
-.Second_eff{
-  color :'blue';
+#Second_eff{
+  color :#666666;
 }
 
-.Second_eff_tittle{
-  color :'blue';
+#Second_eff_tittle{
+  color :#666666;
 }
 
-.Second_eff_time{
-  color :'blue';
+#Second_eff_time{
+  color :#666666;
 }
 
-.Second_eff_time_tittle{
-  color :'blue';
+#Second_eff_time_tittle{
+  color :#666666;
+}
+
+#idt{
+  color :#A52A2A;
+}
+
+#query_list{
+  margin:5px;
+  background: rgba(255,255,255,255.3);
+  color:#000000;
+  text-shadow:0 1px 0 rgba(0,0,0,0.4);
+  font-size:24px;
+  text-align: center;
+  text-align-last: center;
 }
 
 body {
@@ -114,5 +146,19 @@ body {
   font-size: 16px;
   min-width: 100%;
   min-height: 100%;
+}
+
+footer{
+  display:flex;
+position: bottom;
+bottom: 0;
+left: 0;
+right: 0;
+height: 50px;
+width: 100%;
+border-top: 1px solid white;
+justify-content:center;
+   align-items:center;
+ 
 }
 
