@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="KeyWords" content="zelda,the legend of zelda,breath of the wild,薩爾達傳說,曠野之息,荒野之息,WiiU,nintendo switch,Switch"/>
     <meta name="Description" content="About the legend of zelda breath of the wild recipes"/>
-
+    <meta property="og:url" content="https://3.bp.blogspot.com/-KXyvbGYg8Jg/WfWpK1QlreI/AAAAAAAAcsU/oOcSA-AzReUfUpLL88cA7WVN5yL_6wddgCLcBGAs/s1600/zelda.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     <title>Zelda BOtW recipe_tool</title>
     <link rel="stylesheet" type="text/css" href="index.css">
@@ -113,11 +115,11 @@
           name_ch = dataGroup[1].v;
           name_en = dataGroup[2].v;
           if(LANG_TYPE == 'ch'){
-            show_name = name_ch;
+            show_name = name_ch + '(' + name_jp + ')';
           }else if(LANG_TYPE == 'jp'){
             show_name = name_jp;
           }else if(LANG_TYPE == 'en'){
-            show_name = name_en;
+            show_name = name_en + '(' + name_jp + ')';
           }
           var _obj = {"name_ch":name_ch,"name_jp":name_jp,"name_en":name_en};
           MATERIAL[name_ch] = _obj;
@@ -130,6 +132,7 @@
     }
     //查詢食譜
     function food_query(){
+      TYPE = [];
       var $cSel = $('select[name="query_list"]');
       var select_option_val = $cSel.val();
       if(select_option_val == 'default') return;//
@@ -165,7 +168,6 @@
               TYPE[dataGroup[7].v] = 1;
           }
 
-          console.log(TYPE);
           if(dataGroup[1] == null){
             name_ch = '';
           }else{
@@ -179,11 +181,11 @@
           }
           
           if(LANG_TYPE == 'ch'){
-            show_name = '<a class="name">'+name_ch + '</a>/<a class="jp_name">(' + name_jp + ')</a>';
+            show_name = '<a class="name">'+name_ch + '</a><hr><a class="jp_name">(' + name_jp + ')</a>';
           }else if(LANG_TYPE == 'jp'){
-            show_name = '<a class="name">(' + name_jp + ')</a>';
+            show_name = '<a class="name">' + name_jp + '</a>';
           }else if(LANG_TYPE == 'en'){
-            show_name = '<a class="name">'+name_en + '</a>/<a class="jp_name">(' + name_jp + ')</a>';
+            show_name = '<a class="name">'+name_en + '</a><hr><a class="jp_name">(' + name_jp + ')</a>';
           }
           
           //整理資料
@@ -322,7 +324,7 @@
           $('#title').text('The Legend of Zelda: Breath of the Wild recipe tool(text only)'); 
           break;
         }
-
+        TYPE = [];
         list_load_data();
         var html = '';
         $(".container").html(html);
