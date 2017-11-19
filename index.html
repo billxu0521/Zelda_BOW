@@ -57,7 +57,7 @@
       'Fire_def':{"name_ch":"防護火焰","name_jp":"耐火","name_en":"Fireproof"},
       'Quiet_up':{"name_ch":"安靜","name_jp":"音を消す効果","name_en":"Sneaky"}
     };
-    console.log(TYPE_SHOW);
+    //console.log(TYPE_SHOW);
     //查詢公用函式
     function sql_query(sheetID,gid,sql = null){
       var sheetID = sheetID; // 試算表代號
@@ -153,7 +153,7 @@
         html = "",
         i, j, name_jp, name_jp,name_en, M_eff,M_eff_time,S_eff,S_eff_time,effect_type,img_rul;
         
-        console.log(rowArray);
+        //console.log(rowArray);
         for (i = 0; i < rowLength; i++) {
           var show_name = '';
           var idt = new Array;
@@ -164,6 +164,7 @@
               continue;
             }
           }
+          //console.log(dataGroup[0].v+"====");
           name_jp = dataGroup[0].v;
           if(dataGroup[7].v in TYPE) {
             TYPE[dataGroup[7].v] += 1;
@@ -192,14 +193,14 @@
           }
           
           //整理資料
-          M_eff = dataGroup[3].v;//補血
+          //M_eff = dataGroup[3].v;//補血
           M_eff_time = dataGroup[4].v;//補血效果
           S_eff = show_type(dataGroup[7].v);//次要效果
           S_eff_time = dataGroup[6].v;//次要效果時間
           effect_type = dataGroup[7].v;
           img_rul = dataGroup[13].v
 
-          console.log(dataGroup[0].v+"====");
+          //console.log(dataGroup[0].v+"====");
           var all_idt = ''
           for(a = 8; a < 13; a++){
             
@@ -235,8 +236,8 @@
 
     function show_type(S_eff){
       var _str;
-      console.log(S_eff)
-      console.log(TYPE_SHOW[S_eff]);
+      //console.log(S_eff)
+      //console.log(TYPE_SHOW[S_eff]);
       if(LANG_TYPE == 'ch'){
         _str = '<a id="Second_eff">'+String(TYPE_SHOW[S_eff].name_ch)+'</a>';
       }else if(LANG_TYPE == 'jp'){
@@ -270,10 +271,10 @@
     function filter_start(selector){
       $(selector).change(function(){
         if(this.checked){
-          console.log(this.value+",open");
+          //console.log(this.value+",open");
           $("#"+this.value).show();
         }else{
-          console.log(this.value+",close");
+          //console.log(this.value+",close");
           $("#"+this.value).hide();
         }
       });
@@ -402,6 +403,8 @@
       <input type="checkbox" class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" checked></input><a id="Lighting_def_name">防護雷電</a><a id="Lighting_def_count">(0)</a>
       <input type="checkbox" class="filter_checkbox" id="Atk_up_filter" value="Atk_up" checked></input><a id="Atk_up_name">增加攻擊力</a><a id="Atk_up_count">(0)</a>
       <input type="checkbox" class="filter_checkbox" id="Def_up_filter" value="Def_up" checked></input><a id="Def_up_name">增加防禦力</a><a id="Def_up_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Fire_def_filter" value="Fire_def" checked></input><a id="Fire_def_name">增加攻擊力</a><a id="Fire_def_count">(0)</a>
+      <input type="checkbox" class="filter_checkbox" id="Quiet_up_filter" value="Quiet_up" checked></input><a id="Quiet_up_name">增加防禦力</a><a id="Quiet_up_count">(0)</a>
     </div>
     <!--button onclick="food_query()">查詢相關料理</button-->
     <div class='container' id='show_table' style="height: 100%;"></div>

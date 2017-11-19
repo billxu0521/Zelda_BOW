@@ -112,7 +112,7 @@
   text-align:center;
   color:#FFFFFF;
   font-size: 20px;
-  text-shadow:1px 1px 10px #000;
+  text-shadow:1px 1px 6px #000;
 }
 
 #lan_select{ 
@@ -124,9 +124,11 @@
   text-align:center;
   color:#705B28;
 }
-.food_hp 
+#food_hp 
 {
-  color: 'red' ;
+  color: #CC0000 ;
+  font-size: 20px;
+  text-shadow: 0px 1px #000;
 }
 
 #main{
