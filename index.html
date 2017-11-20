@@ -79,7 +79,7 @@
     function list_load_data(){
       var sheetID = "1Nj4CDgWbeIRbv-5SAfQyujYDcXKZFrOfR83MbZ181E0", // 試算表代號
       gid = "2128108946", // 工作表代號
-      sql = "SELECT B,C,D"; // SQL 語法
+      sql = "SELECT B,C,D,E"; // SQL 語法
       var default_option = '' ;
       var res = sql_query (sheetID,gid,sql);
       //切換語言
@@ -104,8 +104,9 @@
         
         rowLength = rowArray.length,
         html = "",
-        i, j, name_jp, name_jp , name_en;
-        //console.log(rowArray);
+        i, j, name_jp, name_jp , name_en,count;
+        
+        rowArray = shuffle(rowArray);
         for (i = 0; i < rowLength; i++) {
           dataGroup = rowArray[i].c;
           dataLength = dataGroup.length;
@@ -114,15 +115,16 @@
               continue;
             }          
           }
-          name_jp = dataGroup[0].v;
-          name_ch = dataGroup[1].v;
-          name_en = dataGroup[2].v;
+          name_jp = dataGroup[0].v ;
+          name_ch = dataGroup[1].v ;
+          name_en = dataGroup[2].v ;
+          count = dataGroup[3].v == null ?  '0' : dataGroup[3].v;
           if(LANG_TYPE == 'ch'){
-            show_name = name_ch + '(' + name_jp + ')';
+            show_name = name_ch + '<' + name_jp + '>' + "(" + count + ")";
           }else if(LANG_TYPE == 'jp'){
-            show_name = name_jp;
+            show_name = name_jp + "(" + count + ")";
           }else if(LANG_TYPE == 'en'){
-            show_name = name_en + '(' + name_jp + ')';
+            show_name = name_en + '<' + name_jp + '>'+ "(" + count + ")";
           }
           var _obj = {"name_ch":name_ch,"name_jp":name_jp,"name_en":name_en};
           MATERIAL[name_ch] = _obj;
@@ -136,6 +138,7 @@
     //查詢食譜
     function food_query(){
       TYPE = [];
+
       var $cSel = $('select[name="query_list"]');
       var select_option_val = $cSel.val();
       if(select_option_val == 'default') return;//
@@ -145,16 +148,21 @@
       sql = "SELECT B,C,D,E,F,G,H,I,J,K,L,M,N,O WHERE J = '" + select_option_val + "' or K = '" + select_option_val + "' or L = '" + select_option_val + "' or M = '" + select_option_val + "' or N = '" + select_option_val + "' "; // SQL 語法
 
       var res = sql_query (sheetID,gid,sql);
-      $(".container").html("查詢中...");
+      $("#msg").html('');
+      $("#msg").html("<div id='quering'>查詢中...</div>");
       //console.log(sql);
       window[res] = function(json) {
+        $("#msg").html('');
         var rowArray = json.table.rows,
         rowLength = rowArray.length,
         html = "",
         i, j, name_jp, name_jp,name_en, M_eff,M_eff_time,S_eff,S_eff_time,effect_type,img_rul;
+
+        rowArray = shuffle(rowArray);
         
-        //console.log(rowArray);
+        
         for (i = 0; i < rowLength; i++) {
+          
           var show_name = '';
           var idt = new Array;
           dataGroup = rowArray[i].c;
@@ -219,6 +227,18 @@
           html += "<div class='item' id='"+ effect_type +"' '>" + show_name + "<hr><div id='food_hp'>❤" + M_eff_time + "</div><hr><div>"+ S_eff +"/<a id='Second_eff_time'>" + S_eff_time + "</a></div><hr><div name='idt'>     " +all_idt +  "</div></div>";
           //html += "<br/>";
         }
+        if(rowLength == 0){
+          var nodata_html= '';
+          if(LANG_TYPE == 'ch'){
+            nodata_html = "<div id='nodata'>目前無資料</div>";
+          }else if(LANG_TYPE == 'jp'){
+            nodata_html = "<div id='nodata'>NO DATA</div>";
+          }else if(LANG_TYPE == 'en'){
+            nodata_html = "<div id='nodata'>NO DATA</div>";
+          }
+          $("#msg").html(nodata_html);
+        }
+        
         $(".container").html(html);
         $("#HP_limit_count").html(TYPE['HP_limit']== null ? '(0)' : '('+TYPE['HP_limit']+')');
         $("#STA_name_count").html(TYPE['STA'] == null ? '(0)' : '('+TYPE['STA']+')');
@@ -264,6 +284,7 @@
         _str = '<a id="idt">'+String(MATERIAL[str].name_en)+'</a>';
         _str += '/' + str_jp+'</a>';
       }
+
       return _str;
     }
 
@@ -347,8 +368,11 @@
       
     }
 
-    
-
+    //洗牌
+    function shuffle(arr){
+      for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+      return arr;
+    }
 
 
     //網頁開始執行
@@ -407,6 +431,7 @@
       <input type="checkbox" class="filter_checkbox" id="Quiet_up_filter" value="Quiet_up" checked></input><a id="Quiet_up_name">增加防禦力</a><a id="Quiet_up_count">(0)</a>
     </div>
     <!--button onclick="food_query()">查詢相關料理</button-->
+    <div  id='msg'></div>
     <div class='container' id='show_table' style="height: 100%;"></div>
   <footer>
   <div id='footer'>Power by: 橫隔膜@Gameqb.net

@@ -1,4 +1,14 @@
 @media only screen and (min-width: 769px){
+  #query_list{
+    margin:5px;
+    background: rgba(255,255,255,255.3);
+    color:#000000;
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+    font-size:24px;
+    text-align-last:center;
+    display: inline-block;
+  }
+
   .container{
     height: 100% !important ;
     max-width: 90%;
@@ -42,6 +52,17 @@
 }
 }
 @media only screen and (min-width: 0px) and (max-width: 769px){
+  #query_list{
+    width: 14em;
+    margin:5px;
+    background: rgba(255,255,255,255.3);
+    color:#000000;
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+    font-size:24px;
+    text-align-last:center;
+    display: inline-block;
+  }
+
   .container{
     height: 100% !important ;
     max-width: 90%;
@@ -101,6 +122,21 @@
 .item .hp_img{
   margin:0 auto;
   display: block;
+}
+
+#quering{
+  font-size: 26px;
+  color:#FFFFFF;
+  text-shadow:0 0 10px rgba(100,100,100,1);
+  text-align:center;
+  margin:0px auto;
+}
+
+#nodata{
+  font-size: 26px;
+  color:#FFFFFF;
+  text-shadow:0 0 10px rgba(100,100,100,1);
+  text-align:center;
 }
 
 #title{
@@ -168,15 +204,7 @@
 #query_select{
   text-align:center;
 }
-#query_list{
-  margin:5px;
-  background: rgba(255,255,255,255.3);
-  color:#000000;
-  text-shadow:0 1px 0 rgba(0,0,0,0.4);
-  font-size:24px;
-  text-align-last:center;
-  display: inline-block;
-}
+
 
 footer{
   display:flex;
