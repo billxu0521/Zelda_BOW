@@ -47,7 +47,7 @@
 
    
     var LANG_TYPE = 'ch';//切換語言用
-    var MATERIAL = new Object(); //材料物件 
+    var MATERIAL = new Array(); //材料物件 
     var TYPE = new Array;
     var TYPE_SHOW = {
       'HP':{"name_ch":"---","name_jp":"---","name_en":"---"},
@@ -104,15 +104,15 @@
 
       window[res] = function(json) {
         var show_name = '';
-        
         var $cSel = $('select[name="query_list"]');   
+
         var rowArray = json.table.rows,
-        
         rowLength = rowArray.length,
         html = "",
         i, j, name_jp, name_jp , name_en,count;
         
         rowArray = shuffle(rowArray);
+
         for (i = 0; i < rowLength; i++) {
           dataGroup = rowArray[i].c;
           dataLength = dataGroup.length;
@@ -133,7 +133,7 @@
             show_name = name_en + '<' + name_jp + '>'+ "(" + count + ")";
           }
           var _obj = {"name_ch":name_ch,"name_jp":name_jp,"name_en":name_en};
-          MATERIAL[name_ch] = _obj;
+          //MATERIAL[name_ch] = _obj;
           //console.log(MATERIAL[name_ch].name_ch);
           $cSel.append($("<option></option>")
                .attr("value",name_ch)
@@ -143,27 +143,28 @@
     }
     //查詢食譜
     function food_query(){
+      
       TYPE = [];
-
       var $cSel = $('select[name="query_list"]');
       var select_option_val = $cSel.val();
-      if(select_option_val == 'default') return;//
+      //if(select_option_val == 'default') return;//
 
       var sheetID = "1Nj4CDgWbeIRbv-5SAfQyujYDcXKZFrOfR83MbZ181E0", // 試算表代號
       gid = "677707019", // 工作表代號
-      sql = "SELECT B,C,D,E,F,G,H,I,J,K,L,M,N,O WHERE J = '" + select_option_val + "' or K = '" + select_option_val + "' or L = '" + select_option_val + "' or M = '" + select_option_val + "' or N = '" + select_option_val + "' "; // SQL 語法
-
+      sql = "SELECT A,B,C,E,F,G,H,I,J,K,L,M,N,O"; // SQL 語法
       var res = sql_query (sheetID,gid,sql);
+
       $("#msg").html('');
       $("#msg").html("<div id='quering'>查詢中...</div>");
       //console.log(sql);
       window[res] = function(json) {
         $("#msg").html('');
         var rowArray = json.table.rows,
+
         rowLength = rowArray.length,
         html = "",
-        i, j, name_jp, name_jp,name_en, M_eff,M_eff_time,S_eff,S_eff_time,effect_type,img_rul;
-
+        i, j, sno,name_jp, name_jp,name_en, M_eff,M_eff_time,S_eff,S_eff_time,effect_type,img_url;
+console.log(rowArray);
         rowArray = shuffle(rowArray);
         
         
@@ -179,40 +180,36 @@
             }
           }
           //console.log(dataGroup[0].v+"====");
-          name_jp = dataGroup[0].v;
-          if(dataGroup[7].v in TYPE) {
-            TYPE[dataGroup[7].v] += 1;
-          }else {
-              TYPE[dataGroup[7].v] = 1;
-          }
-
+          sno = dataGroup[0].v;
+          name_jp = dataGroup[1].v;
+          
           if(dataGroup[1] == null){
             name_ch = '';
           }else{
-            name_ch = dataGroup[1].v;
+            name_ch = dataGroup[2].v;
           }
-
+          
           if(dataGroup[2] == null){
             name_en = '';
           }else{
             name_en = dataGroup[2].v;
           }
-          
-          if(LANG_TYPE == 'ch'){
-            show_name = '<a class="name">'+name_ch + '</a><hr><a class="jp_name">(' + name_jp + ')</a>';
-          }else if(LANG_TYPE == 'jp'){
-            show_name = '<a class="name">' + name_jp + '</a>';
-          }else if(LANG_TYPE == 'en'){
-            show_name = '<a class="name">'+name_en + '</a><hr><a class="jp_name">(' + name_jp + ')</a>';
-          }
+          show_name = '<a class="name">'+name_ch + '</a>';
           
           //整理資料
-          //M_eff = dataGroup[3].v;//補血
+          M_eff = dataGroup[3].v;//補血
           M_eff_time = dataGroup[4].v;//補血效果
-          S_eff = show_type(dataGroup[7].v);//次要效果
+          S_eff = dataGroup[5].v;//次要效果
           S_eff_time = dataGroup[6].v;//次要效果時間
           effect_type = dataGroup[7].v;
           img_rul = dataGroup[13].v
+
+          //計算類型總數
+          if(TYPE[effect_type] == null){
+            TYPE[effect_type] = 1;
+          }else{
+            TYPE[effect_type] ++;
+          }
 
           //console.log(dataGroup[0].v+"====");
           var all_idt = ''
@@ -223,16 +220,23 @@
             }else if(dataGroup[a].v === null){
               break;
             }
-              //console.log(dataGroup[a]);
-              var _idt = get_material(dataGroup[a].v);
-              //idt = dataGroup[a].v;
-              idt[a-2] = _idt;
-              all_idt +=  idt[a-2] + "<br>";
+            if(dataGroup[a].v != '--'){
+              MATERIAL.push(dataGroup[a].v);
+            }
+            var _idt = '<div name=idt_'+ dataGroup[a].v +' >' + dataGroup[a].v + '</div>';
+            //idt = dataGroup[a].v;
+            idt[a-2] = _idt;
+            all_idt +=  idt[a-2] ;
           }
-          //console.log(idt);
-          html += "<div class='item' id='"+ effect_type +"' '>" + show_name + "<hr><div id='food_hp'>❤" + M_eff_time + "</div><hr><div>"+ S_eff +"/<a id='Second_eff_time'>" + S_eff_time + "</a></div><hr><div name='idt'>     " +all_idt +  "</div></div>";
+
+          html += "<div class='item' id='"+ effect_type +"'><img src='"+ img_rul +"'  height='90' width='90'>" + show_name + "<hr><div class='effect'>"+ M_eff + "/" + S_eff +"</div><hr><div class='idt'>     " +all_idt +  "</div></div>";
           //html += "<br/>";
         }
+        MATERIAL.splice(0, 0, '全部食材');
+        MATERIAL=MATERIAL.filter(function(element, index, arr){
+          return arr.indexOf(element)=== index;
+        });
+        food_list(MATERIAL);
         if(rowLength == 0){
           var nodata_html= '';
           if(LANG_TYPE == 'ch'){
@@ -252,7 +256,7 @@
         $("#Speed_UP_count").html(TYPE['Speed_UP'] == null ? '(0)' : '('+TYPE['Speed_UP']+')');
         $("#Cold_def_count").html(TYPE['Cold_def'] == null ? '(0)' : '('+TYPE['Cold_def']+')');
         $("#Hot_def_count").html(TYPE['Hot_def'] == null ? '(0)' : '('+TYPE['Hot_def']+')');
-        $("#Lighting_def_count").html(TYPE['Lighting_def'] == null ? 0 : TYPE['Lighting_def']+')');
+        $("#Lighting_def_count").html(TYPE['Lighting_def'] == null ? 0 : '('+TYPE['Lighting_def']+')');
         $("#Atk_up_count").html(TYPE['Atk_up'] == null ? '(0)' : '('+TYPE['Atk_up']+')');
         $("#Def_up_count").html(TYPE['Def_up'] == null ? '(0)' : '('+TYPE['Def_up']+')');
         $("#Quiet_up_count").html(TYPE['Quiet_up'] == null ? '(0)' : '('+TYPE['Quiet_up']+')');
@@ -294,8 +298,8 @@
       return _str;
     }
 
-    //篩選器
-    function filter_start(selector){
+    //效果篩選器
+    function effectfilter(selector){
       $(selector).change(function(){
         if(this.checked){
           //console.log(this.value+",open");
@@ -306,6 +310,33 @@
         }
       });
     }
+
+    //食材篩選器
+    function foodfilter(selector){
+      $(selector).change(function(){
+          var _food = $(selector).val();
+          if(_food === '全部食材'){
+            console.log('sadas');
+            $('.item').show();
+          }else{
+            $('.item').hide();
+            console.log(_food);
+            $('div[name="idt_'+ _food +'"]').parent('div').parent('div').show();
+        }
+      });
+    }
+
+    //產生食材列表
+    function food_list(array){
+      var $cSel = $('select[name="query_list"]');  
+      for (i = 0; i < array.length; i++) {
+        $cSel.append($("<option></option>")
+               .attr("value",array[i])
+               .text(array[i]));    
+      }
+    }
+
+
     //語言選擇
     function lang_select(selector){
       $(selector).change(function(){
@@ -389,16 +420,16 @@
           columnWidth : 200,
           animate:true
         });
+      console.log('page start');
+      food_query();
 
       
-      console.log('page start');
-      
-      list_load_data();
       //$('select[name="query_list"]').change(food_query());
-      $('select[name="query_list"]').change(function(){
-            food_query();
-          });
-      filter_start('.filter_checkbox');  
+      //$('select[name="query_list"]').change(function(){
+      //      food_query();
+      //    });
+      effectfilter('.filter_checkbox');
+      foodfilter('select[name="query_list"]');
       lang_select('input[name=lang_checkbox]');
     });
 
@@ -410,13 +441,14 @@
     <body >
 
     <div id='title'>
-      薩爾達傳說~曠野之息~食譜快速檢索器(文字版)
+      薩爾達傳說~曠野之息~食譜快速檢索器
     </div>
-    <div id='lan_select'>
+    
+    <!--div id='lan_select'>
       <input type="radio" name="lang_checkbox" value="ch" checked> 繁體中文</input>
       <input type="radio" name="lang_checkbox" value="jp" > 日本語</input>
       <input type="radio" name="lang_checkbox" value="en" > English</input>
-    </div>
+    </div-->
     <div id="query_select" >
     <select id="query_list" name="query_list" class="opts" >
       <option selected value="default">請選擇食材</option>
