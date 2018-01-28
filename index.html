@@ -250,17 +250,40 @@ console.log(rowArray);
         }
         
         $(".container").html(html);
-        $("#HP_limit_count").html(TYPE['HP_limit']== null ? '(0)' : '('+TYPE['HP_limit']+')');
-        $("#STA_name_count").html(TYPE['STA'] == null ? '(0)' : '('+TYPE['STA']+')');
-        $("#STA_limit_count").html(TYPE['STA_limit'] == null ? '(0)' : '('+TYPE['STA_limit']+')');
-        $("#Speed_UP_count").html(TYPE['Speed_UP'] == null ? '(0)' : '('+TYPE['Speed_UP']+')');
-        $("#Cold_def_count").html(TYPE['Cold_def'] == null ? '(0)' : '('+TYPE['Cold_def']+')');
-        $("#Hot_def_count").html(TYPE['Hot_def'] == null ? '(0)' : '('+TYPE['Hot_def']+')');
-        $("#Lighting_def_count").html(TYPE['Lighting_def'] == null ? 0 : '('+TYPE['Lighting_def']+')');
-        $("#Atk_up_count").html(TYPE['Atk_up'] == null ? '(0)' : '('+TYPE['Atk_up']+')');
-        $("#Def_up_count").html(TYPE['Def_up'] == null ? '(0)' : '('+TYPE['Def_up']+')');
-        $("#Quiet_up_count").html(TYPE['Quiet_up'] == null ? '(0)' : '('+TYPE['Quiet_up']+')');
-        $("#Fire_def_count").html(TYPE['Fire_def'] == null ? '(0)' : '('+TYPE['Fire_def']+')');
+        //$("#HP_limit_count").html(TYPE['HP_limit']== null ? '(0)' : '('+TYPE['HP_limit']+')');
+        $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#STA_name_count").html("("+$('#STA div:visible').filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#STA_limit_count").html("("+$( 'div#STA_limit' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Speed_UP_count").html("("+$( 'div#Speed_UP' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Cold_def_count").html("("+$( 'div#Cold_def' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Hot_def_count").html("("+$( 'div#Hot_def' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Lighting_def_count").html("("+$( 'div#Lighting_def' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Atk_up_count").html("("+$( 'div#Atk_up' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Def_up_count").html("("+$( 'div#Def_up' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Quiet_up_count").html("("+$( 'div#Quiet_up' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
+        $("#Fire_def_count").html("("+$( 'div#Fire_def' ).filter(function() {
+            return $(this).css('display') !== 'none';
+          }).length+")");    
       }
     }
 
@@ -303,10 +326,10 @@ console.log(rowArray);
       $(selector).change(function(){
         if(this.checked){
           //console.log(this.value+",open");
-          $("#"+this.value).show();
+          $("div#"+this.value).show();
         }else{
           //console.log(this.value+",close");
-          $("#"+this.value).hide();
+          $("div#"+this.value).hide();
         }
       });
     }
@@ -314,14 +337,85 @@ console.log(rowArray);
     //食材篩選器
     function foodfilter(selector){
       $(selector).change(function(){
+          $('.filter_checkbox').prop("checked", true);
           var _food = $(selector).val();
           if(_food === '全部食材'){
             console.log('sadas');
             $('.item').show();
-          }else{
+            $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#STA_name_count").html("("+$('#STA div:visible').filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#STA_limit_count").html("("+$( 'div#STA_limit' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Speed_UP_count").html("("+$( 'div#Speed_UP' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Cold_def_count").html("("+$( 'div#Cold_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Hot_def_count").html("("+$( 'div#Hot_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Lighting_def_count").html("("+$( 'div#Lighting_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Atk_up_count").html("("+$( 'div#Atk_up' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Def_up_count").html("("+$( 'div#Def_up' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Quiet_up_count").html("("+$( 'div#Quiet_up' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Fire_def_count").html("("+$( 'div#Fire_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            }else{
             $('.item').hide();
             console.log(_food);
             $('div[name="idt_'+ _food +'"]').parent('div').parent('div').show();
+
+            $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+  return $(this).css('display') !== 'none';
+}).length+")");
+            $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#STA_name_count").html("("+$('#STA div:visible').filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#STA_limit_count").html("("+$( 'div#STA_limit' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Speed_UP_count").html("("+$( 'div#Speed_UP' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Cold_def_count").html("("+$( 'div#Cold_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Hot_def_count").html("("+$( 'div#Hot_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Lighting_def_count").html("("+$( 'div#Lighting_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Atk_up_count").html("("+$( 'div#Atk_up' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Def_up_count").html("("+$( 'div#Def_up' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Quiet_up_count").html("("+$( 'div#Quiet_up' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");    
+            $("#Fire_def_count").html("("+$( 'div#Fire_def' ).filter(function() {
+              return $(this).css('display') !== 'none';
+            }).length+")");  
         }
       });
     }
