@@ -229,7 +229,7 @@ console.log(rowArray);
             all_idt +=  idt[a-2] ;
           }
 
-          html += "<div class='item' id='"+ effect_type +"'><img src='"+ img_rul +"'  height='90' width='90'>" + show_name + "<hr><div class='effect'>"+ M_eff + "/" + S_eff +"</div><hr><div class='idt'>     " +all_idt +  "</div></div>";
+          html += "<div class='item' id='"+ effect_type +"'><img src='"+ img_rul +"'  height='90' width='90'><div id='info'>" + show_name + "<hr><div class='effect'>"+ M_eff + "/" + S_eff +"</div><hr><div class='idt'>     " +all_idt +  "</div></div></div>";
           //html += "<br/>";
         }
         MATERIAL.splice(0, 0, '全部食材');
@@ -342,6 +342,7 @@ console.log(rowArray);
           if(_food === '全部食材'){
             console.log('sadas');
             $('.item').show();
+          
             $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
@@ -376,13 +377,15 @@ console.log(rowArray);
               return $(this).css('display') !== 'none';
             }).length+")");    
             }else{
+
             $('.item').hide();
             console.log(_food);
-            $('div[name="idt_'+ _food +'"]').parent('div').parent('div').show();
+
+            $('div[name="idt_'+ _food +'"]').parent('div').parent('div').parent('div').show();
 
             $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
-  return $(this).css('display') !== 'none';
-}).length+")");
+              return $(this).css('display') !== 'none';
+            }).length+")");
             $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
