@@ -115,10 +115,15 @@
   left: 100px
 }
 
-.item .name{
+.item .ch_name{
   font-size: 24px;
   color: #8bad00 ; 
   left:-100px;
+}
+
+.item .jp_name{
+  font-size: 16px;
+  color: #008888 ; 
 }
 
 .item .idt{
