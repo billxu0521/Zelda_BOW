@@ -250,37 +250,37 @@
         
         $(".container").html(html);
         //$("#HP_limit_count").html(TYPE['HP_limit']== null ? '(0)' : '('+TYPE['HP_limit']+')');
-        $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+        $("#HP_limit_count").html("血量上限("+$('div#HP_limit').filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#STA_name_count").html("("+$('#STA div:visible').filter(function() {
+        $("#STA_name_count").html("回復耐力("+$('#STA div:visible').filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#STA_limit_count").html("("+$( 'div#STA_limit' ).filter(function() {
+        $("#STA_limit_count").html("耐力上限("+$( 'div#STA_limit' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Speed_UP_count").html("("+$( 'div#Speed_UP' ).filter(function() {
+        $("#Speed_UP_count").html("提高速度("+$( 'div#Speed_UP' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Cold_def_count").html("("+$( 'div#Cold_def' ).filter(function() {
+        $("#Cold_def_count").html("防護寒冷("+$( 'div#Cold_def' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Hot_def_count").html("("+$( 'div#Hot_def' ).filter(function() {
+        $("#Hot_def_count").html("防護酷暑("+$( 'div#Hot_def' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Lighting_def_count").html("("+$( 'div#Lighting_def' ).filter(function() {
+        $("#Lighting_def_count").html("增加攻擊力("+$( 'div#Lighting_def' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Atk_up_count").html("("+$( 'div#Atk_up' ).filter(function() {
+        $("#Atk_up_count").html("增加攻擊力("+$( 'div#Atk_up' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Def_up_count").html("("+$( 'div#Def_up' ).filter(function() {
+        $("#Def_up_count").html("增加防禦力("+$( 'div#Def_up' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Quiet_up_count").html("("+$( 'div#Quiet_up' ).filter(function() {
+        $("#Quiet_up_count").html("防護燃燒("+$( 'div#Quiet_up' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
-        $("#Fire_def_count").html("("+$( 'div#Fire_def' ).filter(function() {
+        $("#Fire_def_count").html("降低音量("+$( 'div#Fire_def' ).filter(function() {
             return $(this).css('display') !== 'none';
           }).length+")");    
       }
@@ -342,80 +342,76 @@
             console.log('sadas');
             $('.item').show();
           
-            $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+            $("#HP_limit_count").html("血量上限("+$('div#HP_limit').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#STA_name_count").html("("+$('#STA div:visible').filter(function() {
+            $("#STA_name_count").html("回復耐力("+$('#STA div:visible').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#STA_limit_count").html("("+$( 'div#STA_limit' ).filter(function() {
+            $("#STA_limit_count").html("耐力上限("+$( 'div#STA_limit' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Speed_UP_count").html("("+$( 'div#Speed_UP' ).filter(function() {
+            $("#Speed_UP_count").html("提高速度("+$( 'div#Speed_UP' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Cold_def_count").html("("+$( 'div#Cold_def' ).filter(function() {
+            $("#Cold_def_count").html("防護寒冷("+$( 'div#Cold_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Hot_def_count").html("("+$( 'div#Hot_def' ).filter(function() {
+            $("#Hot_def_count").html("防護酷暑("+$( 'div#Hot_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Lighting_def_count").html("("+$( 'div#Lighting_def' ).filter(function() {
+            $("#Lighting_def_count").html("增加攻擊力("+$( 'div#Lighting_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Atk_up_count").html("("+$( 'div#Atk_up' ).filter(function() {
+            $("#Atk_up_count").html("增加攻擊力("+$( 'div#Atk_up' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Def_up_count").html("("+$( 'div#Def_up' ).filter(function() {
+            $("#Def_up_count").html("增加防禦力("+$( 'div#Def_up' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Quiet_up_count").html("("+$( 'div#Quiet_up' ).filter(function() {
+            $("#Quiet_up_count").html("防護燃燒("+$( 'div#Quiet_up' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Fire_def_count").html("("+$( 'div#Fire_def' ).filter(function() {
+            $("#Fire_def_count").html("降低音量("+$( 'div#Fire_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
             }else{
 
             $('.item').hide();
-            console.log(_food);
 
             $('div[name="idt_'+ _food +'"]').parent('div').parent('div').parent('div').show();
 
-            $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
+            $("#HP_limit_count").html("血量上限("+$('div#HP_limit').filter(function() {
               return $(this).css('display') !== 'none';
-            }).length+")");
-            $("#HP_limit_count").html("("+$('div#HP_limit').filter(function() {
-              return $(this).css('display') !== 'none';
-            }).length+")");    
-            $("#STA_name_count").html("("+$('#STA div:visible').filter(function() {
+            }).length+")");   
+            $("#STA_name_count").html("回復耐力("+$('#STA div:visible').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#STA_limit_count").html("("+$( 'div#STA_limit' ).filter(function() {
+            $("#STA_limit_count").html("耐力上限("+$( 'div#STA_limit' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Speed_UP_count").html("("+$( 'div#Speed_UP' ).filter(function() {
+            $("#Speed_UP_count").html("提高速度("+$( 'div#Speed_UP' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Cold_def_count").html("("+$( 'div#Cold_def' ).filter(function() {
+            $("#Cold_def_count").html("防護寒冷("+$( 'div#Cold_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Hot_def_count").html("("+$( 'div#Hot_def' ).filter(function() {
+            $("#Hot_def_count").html("防護酷暑("+$( 'div#Hot_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Lighting_def_count").html("("+$( 'div#Lighting_def' ).filter(function() {
+            $("#Lighting_def_count").html("增加攻擊力("+$( 'div#Lighting_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Atk_up_count").html("("+$( 'div#Atk_up' ).filter(function() {
+            $("#Atk_up_count").html("增加攻擊力("+$( 'div#Atk_up' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Def_up_count").html("("+$( 'div#Def_up' ).filter(function() {
+            $("#Def_up_count").html("增加防禦力("+$( 'div#Def_up' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Quiet_up_count").html("("+$( 'div#Quiet_up' ).filter(function() {
+            $("#Quiet_up_count").html("防護燃燒("+$( 'div#Quiet_up' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
-            $("#Fire_def_count").html("("+$( 'div#Fire_def' ).filter(function() {
+            $("#Fire_def_count").html("降低音量("+$( 'div#Fire_def' ).filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");  
         }
@@ -526,7 +522,6 @@
       //    });
       effectfilter('.filter_checkbox');
       foodfilter('select[name="query_list"]');
-      lang_select('input[name=lang_checkbox]');
     });
 
 
@@ -550,19 +545,23 @@
       <option selected value="default">請選擇食材</option>
     </select>
     </div>
-    <div></div>
-    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:4px;border:4px black double;opacity:0.9;text-align:center;">
-      <input type="checkbox" class="filter_checkbox" id="HP_limit_filter" value="HP_limit" checked></input><a id="HP_limit_name">血量上限</a><a id="HP_limit_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="STA_filter" value="STA" checked></input><a id="STA_name">回復耐力</a><a id="STA_name_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="STA_limit_filter" value="STA_limit" checked></input><a id="STA_limit_name">耐力上限</a><a id="STA_limit_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Speed_UP_filter" value="Speed_UP" checked></input><a id="Speed_UP_name">提高速度</a><a id="Speed_UP_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Cold_def_filter" value="Cold_def" checked></input><a id="Cold_def_name">防護寒冷</a><a id="Cold_def_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Hot_def_filter" value="Hot_def" checked></input><a id="Hot_def_name">防護酷暑</a><a id="Hot_def_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" checked></input><a id="Lighting_def_name">防護雷電</a><a id="Lighting_def_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Atk_up_filter" value="Atk_up" checked></input><a id="Atk_up_name">增加攻擊力</a><a id="Atk_up_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Def_up_filter" value="Def_up" checked></input><a id="Def_up_name">增加防禦力</a><a id="Def_up_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Fire_def_filter" value="Fire_def" checked></input><a id="Fire_def_name">增加攻擊力</a><a id="Fire_def_count">(0)</a>
-      <input type="checkbox" class="filter_checkbox" id="Quiet_up_filter" value="Quiet_up" checked></input><a id="Quiet_up_name">增加防禦力</a><a id="Quiet_up_count">(0)</a>
+    <div>
+    
+    <div style="background-color:#FFFFFF;padding:8px;margin-bottom:1px;border:4px black double;opacity:0.9;text-align:center;">
+      <ul class="pagination">
+      <li class="filter_checkbox" id="HP_limit_filter" value="HP_limit"><a class="active" id="HP_limit_count">血量上限(0)</a></li>
+      <li class="filter_checkbox" id="STA_filter" value="STA" ><a class="active" id="STA_name_count">回復耐力(0)</a></li>
+      <li class="filter_checkbox" id="STA_limit_filter" value="STA_limit" ><a class="active" id="STA_limit_count">耐力上限(0)</a></li>
+      <li class="filter_checkbox" id="Speed_UP_filter" value="Speed_UP" ><a class="active" id="Speed_UP_count">提高速度(0)</a></li>
+      <li class="filter_checkbox" id="Cold_def_filter" value="Cold_def" ><a class="active" id="Cold_def_count">防護寒冷(0)</a></li>
+      <li class="filter_checkbox" id="Hot_def_filter" value="Hot_def" ><a class="active" id="Hot_def_count">防護酷暑(0)</a></li>
+      <li class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" ><a class="active" id="Lighting_def_count">防護雷電(0)</a></li>
+      <li class="filter_checkbox" id="Atk_up_filter" value="Atk_up" ><a class="active" id="Atk_up_count">增加攻擊力(0)</a></li>
+      <li class="filter_checkbox" id="Def_up_filter" value="Def_up" ><a class="active" id="Def_up_count">增加防禦力(0)</a></li>
+      <li class="filter_checkbox" id="Fire_def_filter" value="Fire_def" ><a class="active" id="Fire_def_count">防護燃燒(0)</a></li>
+      <li class="filter_checkbox" id="Quiet_up_filter" value="Quiet_up" ><a class="active" id="Quiet_up_count">降低音量(0)</a></li>
+      </ul>
+      </div>
     </div>
     <!--button onclick="food_query()">查詢相關料理</button-->
     <div  id='msg'></div>
