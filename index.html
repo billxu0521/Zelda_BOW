@@ -322,13 +322,17 @@
 
     //效果篩選器
     function effectfilter(selector){
-      $(selector).change(function(){
-        if(this.checked){
-          //console.log(this.value+",open");
-          $("div#"+this.value).show();
+
+      $(selector).click(function(){
+        console.log($(this).attr("value"));
+        if($(this).hasClass('active')){
+          console.log(this.id+",open");
+          $(this).removeClass('active');
+          $('div#'+ $(this).attr("value")).hide();
         }else{
-          //console.log(this.value+",close");
-          $("div#"+this.value).hide();
+          console.log(this.id+",close");
+          $(this).addClass('active');
+          $('div#'+ $(this).attr("value")).show();
         }
       });
     }
@@ -341,7 +345,7 @@
           if(_food === '全部食材'){
             console.log('sadas');
             $('.item').show();
-          
+            $('li[class="filter_checkbox"] a').addClass('active');
             $("#HP_limit_count").html("血量上限("+$('div#HP_limit').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");    
@@ -380,7 +384,7 @@
             $('.item').hide();
 
             $('div[name="idt_'+ _food +'"]').parent('div').parent('div').parent('div').show();
-
+            $('li[class="filter_checkbox"] a').addClass('active');
             $("#HP_limit_count").html("血量上限("+$('div#HP_limit').filter(function() {
               return $(this).css('display') !== 'none';
             }).length+")");   
@@ -520,7 +524,7 @@
       //$('select[name="query_list"]').change(function(){
       //      food_query();
       //    });
-      effectfilter('.filter_checkbox');
+      effectfilter('li[class="filter_checkbox"] a');
       foodfilter('select[name="query_list"]');
     });
 
@@ -549,17 +553,17 @@
     
     <div style="background-color:#FFFFFF;padding:8px;margin-bottom:1px;border:4px black double;opacity:0.9;text-align:center;">
       <ul class="pagination">
-      <li class="filter_checkbox" id="HP_limit_filter" value="HP_limit"><a class="active" id="HP_limit_count">血量上限(0)</a></li>
-      <li class="filter_checkbox" id="STA_filter" value="STA" ><a class="active" id="STA_name_count">回復耐力(0)</a></li>
-      <li class="filter_checkbox" id="STA_limit_filter" value="STA_limit" ><a class="active" id="STA_limit_count">耐力上限(0)</a></li>
-      <li class="filter_checkbox" id="Speed_UP_filter" value="Speed_UP" ><a class="active" id="Speed_UP_count">提高速度(0)</a></li>
-      <li class="filter_checkbox" id="Cold_def_filter" value="Cold_def" ><a class="active" id="Cold_def_count">防護寒冷(0)</a></li>
-      <li class="filter_checkbox" id="Hot_def_filter" value="Hot_def" ><a class="active" id="Hot_def_count">防護酷暑(0)</a></li>
-      <li class="filter_checkbox" id="Lighting_def_filter" value="Lighting_def" ><a class="active" id="Lighting_def_count">防護雷電(0)</a></li>
-      <li class="filter_checkbox" id="Atk_up_filter" value="Atk_up" ><a class="active" id="Atk_up_count">增加攻擊力(0)</a></li>
-      <li class="filter_checkbox" id="Def_up_filter" value="Def_up" ><a class="active" id="Def_up_count">增加防禦力(0)</a></li>
-      <li class="filter_checkbox" id="Fire_def_filter" value="Fire_def" ><a class="active" id="Fire_def_count">防護燃燒(0)</a></li>
-      <li class="filter_checkbox" id="Quiet_up_filter" value="Quiet_up" ><a class="active" id="Quiet_up_count">降低音量(0)</a></li>
+      <li class="filter_checkbox" id="HP_limit_filter" ><a class="active" id="HP_limit_count" value="HP_limit">血量上限(0)</a></li>
+      <li class="filter_checkbox" id="STA_filter" ><a class="active" id="STA_name_count" value="STA" >回復耐力(0)</a></li>
+      <li class="filter_checkbox" id="STA_limit_filter" ><a class="active" id="STA_limit_count" value="STA_limit">耐力上限(0)</a></li>
+      <li class="filter_checkbox" id="Speed_UP_filter" ><a class="active" id="Speed_UP_count" value="Speed_UP">提高速度(0)</a></li>
+      <li class="filter_checkbox" id="Cold_def_filter" ><a class="active" id="Cold_def_count" value="Cold_def" >防護寒冷(0)</a></li>
+      <li class="filter_checkbox" id="Hot_def_filter" ><a class="active" id="Hot_def_count" value="Hot_def">防護酷暑(0)</a></li>
+      <li class="filter_checkbox" id="Lighting_def_filter" ><a class="active" id="Lighting_def_count" value="Lighting_def">防護雷電(0)</a></li>
+      <li class="filter_checkbox" id="Atk_up_filter" ><a class="active" id="Atk_up_count" value="Atk_up">增加攻擊力(0)</a></li>
+      <li class="filter_checkbox" id="Def_up_filter" ><a class="active" id="Def_up_count" value="Def_up" >增加防禦力(0)</a></li>
+      <li class="filter_checkbox" id="Fire_def_filter" ><a class="active" id="Fire_def_count" value="Fire_def" >防護燃燒(0)</a></li>
+      <li class="filter_checkbox" id="Quiet_up_filter" ><a class="active" id="Quiet_up_count" value="Quiet_up" >降低音量(0)</a></li>
       </ul>
       </div>
     </div>

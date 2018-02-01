@@ -156,22 +156,21 @@ ul.pagination li.filter_checkbox a {
     float: left;
     padding: 2px 5px;
     text-decoration: none;
-    border:1px dashed #FFF;
+    border:1px dashed #383838;
+    background-color: #FFFFFF;
+    color: black;
 }
 
 ul.pagination li.filter_checkbox a.active {
-    background-color: #008844;
+    background-color: #383838;
+    border:1px dashed #FFF;
     color: white;
 }
 
 ul.pagination li.filter_checkbox a:hover{
-  background-color: #ddd;
-  
-
+  background-color: #000;
+  color: white;
 }
-
-
-
 
 #quering{
   font-size: 26px;
