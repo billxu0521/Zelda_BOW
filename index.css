@@ -1,3 +1,6 @@
+.infeed {
+  text-align:center
+}
 @media only screen and (min-width: 769px){
   #query_list{
     margin:5px;
