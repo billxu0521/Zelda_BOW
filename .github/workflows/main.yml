@@ -6,7 +6,7 @@ name: Hello
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "00 * * * *"
 
 jobs:
   # This workflow contains a single job called "cron"
